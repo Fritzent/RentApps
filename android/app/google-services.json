@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "325664852023",
+    "project_id": "flutterrent-3124f",
+    "storage_bucket": "flutterrent-3124f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325664852023:android:4252da254d9111db3bd7b2",
+        "android_client_info": {
+          "package_name": "com.example.flutter_rent_apps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2ebPFb30nrlPSygANA1HGJf4p5MDvizw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
