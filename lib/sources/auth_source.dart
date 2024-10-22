@@ -105,7 +105,7 @@ class AuthSource {
       await collectionReference.doc(user.uid).update(data);
       Map<String, dynamic>? userSessionData = await DSession.getUser();
       if (userSessionData != null) {
-        Account account = Account.fromJson(Map.from(userSessionData!));
+        Account account = Account.fromJson(Map.from(userSessionData));
         account.name = data['name'];
         await DSession.removeUser();
         await DSession.setUser(Map.from(account.toJson()));
