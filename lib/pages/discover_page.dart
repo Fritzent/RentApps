@@ -18,7 +18,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
     const OrdersFragment(),
     const SettingsFragment(),
   ];
-  final fragmentIndex = 2.obs;
+  final fragmentIndex = 0.obs;
 
 
   @override
