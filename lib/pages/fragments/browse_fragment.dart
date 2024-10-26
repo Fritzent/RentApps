@@ -28,10 +28,10 @@ class _BrowseFragmentState extends State<BrowseFragment> {
     WidgetsBinding.instance.addPostFrameCallback((timestamp) {
       browseFeatureController.fetchFeature();
       browseNewsController.fetchNewsFeature();
-      browseBookingController.bike = {
-        'name': 'Enfielding Pro',
-        'image': 'https://a.storyblok.com/f/176629/3000x2000/99845c56db/300sr_ghost-grey.png',
-      };
+      // browseBookingController.bike = {
+      //   'name': 'Enfielding Pro',
+      //   'image': 'https://a.storyblok.com/f/176629/3000x2000/99845c56db/300sr_ghost-grey.png',
+      // };
     });
     super.initState();
   }
@@ -189,7 +189,8 @@ class _BrowseFragmentState extends State<BrowseFragment> {
   ) {
     return GestureDetector(
       onTap: (){
-        Navigator.pushReplacementNamed(context, '/detail', arguments: bike.id);
+        Navigator.pushNamed(context, '/detail', arguments: bike.id);
+        //Navigator.popAndPushNamed(context, '/detail', arguments: bike.id);
       },
       child: Container(
         height: 98,
@@ -325,7 +326,7 @@ class _BrowseFragmentState extends State<BrowseFragment> {
   ){
     return GestureDetector(
       onTap: (){
-        Navigator.pushReplacementNamed(context, '/detail', arguments: bike.id);
+        Navigator.pushNamed(context, '/detail', arguments: bike.id);
       },
       child: Container(
         width: 252,
