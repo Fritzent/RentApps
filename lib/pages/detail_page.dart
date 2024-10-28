@@ -3,12 +3,15 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_apps/controller/detail_controller.dart';
 import 'package:flutter_rent_apps/models/account.dart';
+import 'package:flutter_rent_apps/sources/chat_source.dart';
 import 'package:flutter_rent_apps/widgets/failed_ui.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../common/info.dart';
 import '../models/bike.dart';
+import '../models/chat.dart';
 import '../widgets/button_primary.dart';
 
 class DetailPage extends StatefulWidget {
@@ -77,7 +80,7 @@ class _DetailPageState extends State<DetailPage> {
             child: Text(
               data.name.toUpperCase(),
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 32,
                 fontWeight: FontWeight.w700,
                 color: Color(0xff070623)
               ),
@@ -144,9 +147,24 @@ class _DetailPageState extends State<DetailPage> {
             ],
           ),
           const Gap(16),
-          ExtendedImage.network(
-            data.image,
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Image.asset(
+                'assets/ellipse.png',
+                fit: BoxFit.fitWidth,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: ExtendedImage.network(
+                  data.image,
+                  height: 250,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            ]
           ),
+          const Gap(16),
           Container(
             alignment: Alignment.centerLeft,
             child: const Text(
@@ -176,7 +194,7 @@ class _DetailPageState extends State<DetailPage> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             decoration: BoxDecoration(
               color: const Color(0xff070623),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
               children: [
@@ -194,7 +212,7 @@ class _DetailPageState extends State<DetailPage> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 26,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                         ),
@@ -214,6 +232,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    Navigator.pushNamed(context, '/booking', arguments: data);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -232,12 +251,39 @@ class _DetailPageState extends State<DetailPage> {
                     )
                   ),
                 ),
+
               ],
             ),
           ),
           const Gap(16),
           GestureDetector(
             onTap: () {
+              Chat chat = Chat(
+                roomId: account.uid, 
+                message: 'Ready?', 
+                receiverId: 'cs', 
+                senderId: account.uid,
+                bikeDetail: {
+                  'image': data.image,
+                  'name': data.name,
+                  'category': data.category,
+                  'id': data.id,
+                },
+              );
+              String uid = account.uid;
+              Info.netral('Loading');
+              ChatSource.openChatRoom(uid, account.name).then((value) {
+                ChatSource.sendChat(chat, uid).then((responseSendChat) {
+                  Navigator.pushNamed(
+                    context, 
+                    '/chatting',
+                    arguments: {
+                      'uid' : uid,
+                      'userName': account.name,
+                    },
+                  );
+                });
+              });
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 16),

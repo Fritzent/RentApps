@@ -12,6 +12,12 @@ class BrowseFeatureController extends GetxController {
   String get status => _status.value;
   set status(String n) => _status.value = n;
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchFeature();
+  }
+
   fetchFeature() async {
     status = 'Loading';
     final bikes = await BikeSource.featchFeatureBike();

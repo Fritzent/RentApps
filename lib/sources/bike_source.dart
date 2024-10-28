@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rent_apps/models/bike.dart';
+import 'package:get/get.dart';
 
 class BikeSource {
   static Future<List<Bike>?> featchFeatureBike() async{
@@ -9,6 +10,21 @@ class BikeSource {
       final datas = FirebaseFirestore.instance.collection('Bikes').where('rating', isGreaterThan: 4.5).orderBy('rating', descending: true).limit(5);
       final query = await datas.get();
       List<Bike> listData = query.docs.map((doc) => Bike.fromJson(doc.data())).toList();
+
+      // FirebaseFirestore.instance.collection('your_collection').snapshots().listen((snapshot) {
+      //   dataList.clear(); // Clear the old data
+      //   for (var doc in snapshot.docs) {
+      //     dataList.add(doc['your_field']); // Add new data
+      //   }
+      // });
+      RxList<List<Bike>> listDatas = <List<Bike>>[].obs;
+      final datas2 = FirebaseFirestore.instance.collection('Bikes').snapshots().listen((snapshot) {
+        listDatas.clear();
+        for (var doc in snapshot.docs) {
+          
+        }
+      });
+
       return listData;
     } catch (e) {
       log(e.toString() as num);
