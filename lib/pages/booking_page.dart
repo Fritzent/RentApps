@@ -194,7 +194,7 @@ class _BookingPagesState extends State<BookingPages> {
                     borderRadius: BorderRadius.circular(16),
                     color: Colors.white,
                     border: agencyIndex == index ? Border.all(
-                      color: Color(0xff4a1dff),
+                      color: const Color(0xff4a1dff),
                       width: 3,
                     ) : null
                   ),
@@ -283,7 +283,7 @@ class _BookingPagesState extends State<BookingPages> {
   }
   Widget buildSnippetBike(){
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       height: 98,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
