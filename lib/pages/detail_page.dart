@@ -12,7 +12,6 @@ import 'package:intl/intl.dart';
 import '../common/info.dart';
 import '../models/bike.dart';
 import '../models/chat.dart';
-import '../widgets/button_primary.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key, required this.bikeId});
@@ -182,7 +181,7 @@ class _DetailPageState extends State<DetailPage> {
             child: Text(
               data.about,
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w300,
                 color:  Color(0xff070623),
@@ -235,7 +234,7 @@ class _DetailPageState extends State<DetailPage> {
                     Navigator.pushNamed(context, '/booking', arguments: data);
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     decoration: BoxDecoration(
                       color: const Color(0xffffbc1c),
                       shape: BoxShape.rectangle,
@@ -286,7 +285,7 @@ class _DetailPageState extends State<DetailPage> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color: Colors.white,

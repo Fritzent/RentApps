@@ -28,6 +28,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   double grandTotal = 0;
   int paymentIndex = 0;
   String selectedPayment = '';
+  double balance = 9500000; 
 
   backPage() {
     Navigator.pop(context);

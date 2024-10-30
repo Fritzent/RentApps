@@ -7,25 +7,13 @@ import 'package:get/get.dart';
 class BikeSource {
   static Future<List<Bike>?> featchFeatureBike() async{
     try {
-      final datas = FirebaseFirestore.instance.collection('Bikes').where('rating', isGreaterThan: 4.5).orderBy('rating', descending: true).limit(5);
-      final query = await datas.get();
-      List<Bike> listData = query.docs.map((doc) => Bike.fromJson(doc.data())).toList();
-
-      // FirebaseFirestore.instance.collection('your_collection').snapshots().listen((snapshot) {
-      //   dataList.clear(); // Clear the old data
-      //   for (var doc in snapshot.docs) {
-      //     dataList.add(doc['your_field']); // Add new data
-      //   }
-      // });
-      RxList<List<Bike>> listDatas = <List<Bike>>[].obs;
-      final datas2 = FirebaseFirestore.instance.collection('Bikes').snapshots().listen((snapshot) {
+      List<Bike> listDatas = <Bike>[].obs;
+      FirebaseFirestore.instance.collection('Bikes').where('rating', isGreaterThan: 4.5).orderBy('rating', descending: true).limit(5).snapshots().listen((snapshot) {
         listDatas.clear();
-        for (var doc in snapshot.docs) {
-          
-        }
+        listDatas.addAll(snapshot.docs.map((docData) => Bike.fromJson(docData.data())).toList());
       });
 
-      return listData;
+      return listDatas;
     } catch (e) {
       log(e.toString() as num);
       return null;
@@ -34,10 +22,18 @@ class BikeSource {
 
   static Future<List<Bike>?> featchNewsBikes() async{
     try {
-      final datas = FirebaseFirestore.instance.collection('Bikes').orderBy('release', descending: true).limit(5);
-      final query = await datas.get();
-      List<Bike> listData = query.docs.map((doc) => Bike.fromJson(doc.data())).toList();
-      return listData;
+      /* Here code to handle if get the data but can not update when there is changes is the database */
+      // final datas = FirebaseFirestore.instance.collection('Bikes').orderBy('release', descending: true).limit(5);
+      // final query = await datas.get();
+      // List<Bike> listData = query.docs.map((doc) => Bike.fromJson(doc.data())).toList();
+
+      List<Bike> datas = <Bike>[].obs;
+      FirebaseFirestore.instance.collection('Bikes').orderBy('release', descending: true).limit(10).snapshots().listen((snapshot) {
+        datas.clear();
+        datas.addAll(snapshot.docs.map((doc) => Bike.fromJson(doc.data())).toList());
+      });
+
+      return datas;
     } catch (e) {
       log(e.toString() as num);
       return null;
