@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 import '../common/info.dart';
 import '../models/account.dart';
-import '../models/chat.dart';
 import '../sources/chat_source.dart';
 
 class DiscoverPage extends StatefulWidget {
