@@ -1,9 +1,15 @@
+import 'package:d_session/d_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_apps/pages/fragments/browse_fragment.dart';
 import 'package:flutter_rent_apps/pages/fragments/orders_fragment.dart';
 import 'package:flutter_rent_apps/pages/fragments/settings_fragment.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+
+import '../common/info.dart';
+import '../models/account.dart';
+import '../models/chat.dart';
+import '../sources/chat_source.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({super.key});
@@ -13,6 +19,9 @@ class DiscoverPage extends StatefulWidget {
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
+  late final Account account;
+
+
   final fragments = [
     const BrowseFragment(),
     const OrdersFragment(),
@@ -20,6 +29,13 @@ class _DiscoverPageState extends State<DiscoverPage> {
   ];
   final fragmentIndex = 0.obs;
 
+  @override
+  void initState() {
+    DSession.getUser().then((value) {
+      account = Account.fromJson(Map.from(value!));
+    }); 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +81,18 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   icon: 'assets/ic_chats.png', 
                   iconOn: 'assets/ic_chats_on.png', 
                   hasNewUpdate: true,
-                  onTap: (){
+                  onTap: (){ 
+                    Info.netral('Loading');
+                    ChatSource.openChatRoom(account.uid, account.name).then((value) {
+                      Navigator.pushNamed(
+                        context, 
+                        '/chatting',
+                        arguments: {
+                          'uid' : account.uid,
+                          'userName': account.name,
+                        },
+                      );
+                    });
                   }
                 ),
                 buildItemNav(
