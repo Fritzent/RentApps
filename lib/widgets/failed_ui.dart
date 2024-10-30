@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class FailedUi extends StatelessWidget {
   const FailedUi({super.key, required this.message});
